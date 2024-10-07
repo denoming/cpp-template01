@@ -15,9 +15,9 @@ target_sources(${TARGET}
         main.cpp
 )
 
-target_compile_features(${TARGET} PRIVATE cxx_std_17)
+target_compile_features(${TARGET} PRIVATE cxx_std_20)
 
 install(
     TARGETS ${TARGET}
-    COMPONENT MyApp_Runtime
+    COMPONENT MyAppRuntime
 )
