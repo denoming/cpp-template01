@@ -47,7 +47,7 @@ else()
 endif()
 
 # Specify include file with generator specific overrides
-set(CPACK_PROJECT_CONFIG_FILE "${PROJECT_SOURCE_DIR}/config/cpackGeneratorOverrides.cmake")
+set(CPACK_PROJECT_CONFIG_FILE "${PROJECT_SOURCE_DIR}/config/misc/cpackGeneratorOverrides.cmake")
 
 include(CPack)
 

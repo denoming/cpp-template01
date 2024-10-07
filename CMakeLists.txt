@@ -14,6 +14,7 @@ if (CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
     include(cmake/ProjectPackaging.cmake)
 endif()
 
+add_subdirectory(config)
 add_subdirectory(src)
 if(TEMPLATE01_ENABLE_TESTS)
     add_subdirectory(test)
