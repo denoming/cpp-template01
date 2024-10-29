@@ -7,10 +7,10 @@ project(Template01
 
 include(cmake/ProjectOptions.cmake)
 include(cmake/ProjectConfigs.cmake)
-if (CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+if(PROJECT_IS_TOP_LEVEL)
     include(cmake/ProjectInstall.cmake)
 endif()
-if (CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+if(PROJECT_IS_TOP_LEVEL)
     include(cmake/ProjectPackaging.cmake)
 endif()
 
