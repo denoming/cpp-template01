@@ -19,5 +19,5 @@ target_compile_features(${TARGET} PRIVATE cxx_std_20)
 
 install(
     TARGETS ${TARGET}
-    COMPONENT MyAppRuntime
+    COMPONENT Template01_Runtime
 )
