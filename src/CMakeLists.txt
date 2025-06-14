@@ -1,23 +1,21 @@
 include(GNUInstallDirs)
 
-set(TARGET MyApp)
+add_executable(Template01-main "")
+add_executable(Template01::Main ALIAS Template01-main)
 
-add_executable(${TARGET} "")
-add_executable(My::App ALIAS ${TARGET})
-
-set_target_properties(${TARGET}
+set_target_properties(Template01-main
     PROPERTIES
-        OUTPUT_NAME my-app
+        OUTPUT_NAME main
 )
 
-target_sources(${TARGET}
+target_sources(Template01-main
     PRIVATE
         main.cpp
 )
 
-target_compile_features(${TARGET} PRIVATE cxx_std_20)
+target_compile_features(Template01-main PRIVATE cxx_std_20)
 
 install(
-    TARGETS ${TARGET}
+    TARGETS Template01-main
     COMPONENT Template01_Runtime
 )
