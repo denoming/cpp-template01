@@ -1,0 +1,32 @@
+name: Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Setup
+        run: |
+          sudo apt update
+          sudo apt install -y cmake doxygen plantuml graphviz libgtest-dev libgmock-dev
+      - name: Project - Checkout
+        uses: actions/checkout@v4
+      - name: Project - Configure
+        run: >
+          cmake -B ${{github.workspace}}/build-ci
+          -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+          -DTEMPLATE01_ENABLE_TESTS=ON
+          -DTEMPLATE01_ENABLE_DOC=ON
+      - name: Project - Build
+        run: cmake --build ${{github.workspace}}/build-ci --parallel
+      - name: Project - Test
+        working-directory: ${{github.workspace}}/build-ci
+        run: ctest -C ${{env.BUILD_TYPE}}
