@@ -10,6 +10,7 @@ on:
 
 env:
   BUILD_TYPE: Release
+  BUILD_ROOT: ${{ github.workspace }}/build-ci
 
 jobs:
   build:
@@ -23,12 +24,19 @@ jobs:
         uses: actions/checkout@v4
       - name: Project - Configure
         run: >
-          cmake -B ${{github.workspace}}/build-ci
-          -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+          cmake -B ${{ env.BUILD_ROOT }}
+          -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
           -DTEMPLATE01_ENABLE_TESTS=ON
           -DTEMPLATE01_ENABLE_DOC=ON
       - name: Project - Build
-        run: cmake --build ${{github.workspace}}/build-ci --parallel
+        run: cmake --build ${{ env.BUILD_ROOT }} --parallel
       - name: Project - Test
-        working-directory: ${{github.workspace}}/build-ci
-        run: ctest -C ${{env.BUILD_TYPE}}
+        id: test
+        working-directory: ${{ env.BUILD_ROOT }}
+        run: ctest -C ${{ env.BUILD_TYPE }} --output-junit report.xml
+      - name: Project - Archive
+        if: failure() && steps.test.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          path: ${{ env.BUILD_ROOT }}/report.xml
+ 
