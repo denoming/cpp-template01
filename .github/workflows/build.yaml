@@ -10,16 +10,14 @@ on:
 
 env:
   BUILD_TYPE: Release
-  BUILD_ROOT: ${{ github.workspace }}/build-ci
+  BUILD_ROOT: build-ci
 
 jobs:
   build:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
+    container:
+      image: denoming/base:python3.13-trixie
     steps:
-      - name: Setup
-        run: |
-          sudo apt update
-          sudo apt install -y cmake doxygen plantuml graphviz libgtest-dev libgmock-dev
       - name: Project - Checkout
         uses: actions/checkout@v4
       - name: Project - Configure
